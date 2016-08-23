@@ -33,8 +33,7 @@ class CalculatorViewController: UIViewController {
             history.text = " "
         }
     }
-    
-    
+ 
     override var preferredStatusBarStyle: UIStatusBarStyle {
         return .lightContent
     }
@@ -45,6 +44,18 @@ class CalculatorViewController: UIViewController {
     @IBOutlet private weak var separator: UIButton! {
         didSet {
             separator.setTitle(decimalSeparator, for: .normal)
+        }
+    }
+    
+    private var resultValue:(Double, String?) = (0.0, nil) {
+        didSet{
+            switch resultValue {
+            case (_, nil): displayValue = resultValue.0
+            case (_, let error):
+                display.text = error
+                history.text = brain.description + (brain.isPartialResult ? "..." : " =")
+                userIsInTheMiddleOfTyping = false
+            }
         }
     }
     
@@ -92,8 +103,7 @@ class CalculatorViewController: UIViewController {
         
         
     }
-    
-    
+
     private var brain = CalculatorBrain()
     
     @IBAction private func performOperation(_ sender: UIButton) {
@@ -110,38 +120,48 @@ class CalculatorViewController: UIViewController {
             brain.performOperation(mathematicalSymbol)
         }
         
-        displayValue = brain.result
+        resultValue = brain.result
         
         
     }
-    
-    var saveProgram: CalculatorBrain.PropertyList?
-    
-    @IBAction func save() {
-        saveProgram = brain.program
-    }
-    
-    @IBAction func restore() {
-        if saveProgram != nil {
-            brain.program = saveProgram
-            displayValue = brain.result
+ 
+    @IBAction func setM(_ sender: UIButton) {
+        userIsInTheMiddleOfTyping = false
+        if let title = sender.currentTitle {
+            let symbol = String(title.characters.dropFirst())
+            
+            if let value = displayValue {
+                brain.variableValues[symbol] = value
+                resultValue = brain.result
+            }
         }
+
     }
     
+    @IBAction func pushM(_ sender: UIButton) {
+        brain.setOperand(sender.currentTitle!)
+        resultValue = brain.result
+    }
+ 
     @IBAction func backspace(_ sender: UIButton) {
         
         if userIsInTheMiddleOfTyping {
             display.text!.remove(at: display.text!.index(before: display.text!.endIndex))
-        }
-        if display.text!.isEmpty {
-            userIsInTheMiddleOfTyping = false
-            displayValue = brain.result
+            
+            if display.text!.isEmpty {
+                userIsInTheMiddleOfTyping = false
+                resultValue = brain.result
+            }
+        } else {
+            brain.undoLast()
+            resultValue = brain.result
         }
         
     }
     
     @IBAction func clearAll(_ sender: UIButton) {
         brain.clear()
+        brain.clearVariables()
         displayValue = nil
         
     }
