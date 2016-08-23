@@ -115,6 +115,19 @@ class CalculatorViewController: UIViewController {
         
     }
     
+    var saveProgram: CalculatorBrain.PropertyList?
+    
+    @IBAction func save() {
+        saveProgram = brain.program
+    }
+    
+    @IBAction func restore() {
+        if saveProgram != nil {
+            brain.program = saveProgram
+            displayValue = brain.result
+        }
+    }
+    
     @IBAction func backspace(_ sender: UIButton) {
         
         if userIsInTheMiddleOfTyping {

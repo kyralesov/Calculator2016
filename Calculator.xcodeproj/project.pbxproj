@@ -14,7 +14,6 @@
 		143F37671D6303FD0052F7FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 143F37651D6303FD0052F7FF /* LaunchScreen.storyboard */; };
 		143F37701D63049C0052F7FF /* CalculatorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 143F376F1D63049C0052F7FF /* CalculatorViewController.swift */; };
 		14CB3E821D6B81D800B3D833 /* CalculatorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14CB3E811D6B81D800B3D833 /* CalculatorTests.swift */; };
-		14DE31F31D6C2D9600BDCF88 /* README.md in Sources */ = {isa = PBXBuildFile; fileRef = 14DE31F21D6C2D9600BDCF88 /* README.md */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -39,7 +38,6 @@
 		14CB3E7F1D6B81D700B3D833 /* CalculatorTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CalculatorTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		14CB3E811D6B81D800B3D833 /* CalculatorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalculatorTests.swift; sourceTree = "<group>"; };
 		14CB3E831D6B81D800B3D833 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		14DE31F21D6C2D9600BDCF88 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -63,7 +61,6 @@
 		143F37501D6303FC0052F7FF = {
 			isa = PBXGroup;
 			children = (
-				14DE31F21D6C2D9600BDCF88 /* README.md */,
 				143F375B1D6303FD0052F7FF /* Calculator */,
 				14CB3E801D6B81D700B3D833 /* CalculatorTests */,
 				143F375A1D6303FD0052F7FF /* Products */,
@@ -217,7 +214,6 @@
 			files = (
 				1414B7CF1D66ED61002B5AE9 /* CalculatorBrain.swift in Sources */,
 				143F37701D63049C0052F7FF /* CalculatorViewController.swift in Sources */,
-				14DE31F31D6C2D9600BDCF88 /* README.md in Sources */,
 				143F375D1D6303FD0052F7FF /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

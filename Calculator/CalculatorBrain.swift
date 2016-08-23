@@ -14,6 +14,8 @@ class CalculatorBrain {
     
     private var currentPrecedence = Int.max
     
+    private var internalProgram = [AnyObject]()
+    
     private var descriptionAccumulator = "0" {
         didSet {
             if pending == nil {
@@ -21,6 +23,27 @@ class CalculatorBrain {
             }
         }
     }
+    
+    typealias PropertyList = Any
+    var program:PropertyList {
+        get {
+            return internalProgram
+        }
+        set {
+            clear()
+            if let arrayOfOpps = newValue as? [AnyObject] {
+                for op in arrayOfOpps {
+                    if let operand = op as? Double {
+                        setOperand(operand)
+                    } else if let operation = op as? String {
+                        performOperation(operation)
+                    }
+                }
+            }
+            
+        }
+    }
+    
     
     var result: Double {
         return accumulator
@@ -62,7 +85,7 @@ class CalculatorBrain {
         "ln" : Operation.unary(log, {"ln(" + $0 + ")"}),
         "√" : Operation.unary(sqrt, {"√(" + $0 + ")"}),
         "=" : Operation.equals
-    
+        
     ]
     
     private enum Operation {
@@ -95,15 +118,20 @@ class CalculatorBrain {
         descriptionAccumulator = " "
         currentPrecedence = Int.max
         pending = nil
+        internalProgram.removeAll()
     }
     
     func setOperand(_ operand: Double) {
         accumulator = operand
+        internalProgram.append(operand as AnyObject)
         descriptionAccumulator = formatter.string(from: NSNumber(value: accumulator)) ?? ""
         
     }
     
     func performOperation(_ symbol: String) {
+        
+        internalProgram.append(symbol as AnyObject)
+        
         if let operation = operations[symbol] {
             switch operation {
             case .constant(let value):
@@ -128,7 +156,7 @@ class CalculatorBrain {
                                                      firstOperand: accumulator,
                                                      descriptionFunction: descriptionFunction,
                                                      descriptionOperand: descriptionAccumulator)
-
+                
             case .equals:
                 executePandingBinaryOperation()
             }
