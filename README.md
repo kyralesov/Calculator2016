@@ -1,1 +1,1 @@
-# Stenford-CS193P Calculator 2016
+# Calculator of the cs193p lecture (Spring 2016)
